@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+export var Detecting = 0;
+
 class Seat extends React.Component {
     constructor(props) {
         super(props);
@@ -16,11 +18,11 @@ class Seat extends React.Component {
     handleClick() {
         if (this.state.isbooked === 'ava') {
             this.setState({isbooked: 'boo'});
+            Detecting = Detecting + 1;
         } else if (this.state.isbooked === 'boo') {
             this.setState({isbooked: 'ava'});
+            Detecting = Detecting - 1;
         }
-        console.log("Pass handleClick");
-        console.log(this.state.isbooked);
     }
 
     checking() {
@@ -44,13 +46,23 @@ class Seat extends React.Component {
                 <button className="Null" disabled='disabled'></button>
             )
         }
-        
+    }
+
+    makingList() {
+        if(this.state.isbooked === 'boo') {
+            return (
+                <p className="Makinglist">{this.props.Row}{this.props.Col}</p>
+            )
+        }
     }
 
     render() {
         return (
             <div className="Seat">
                 {this.checking()}
+                <div className="Seatnum">
+                    {this.makingList()}
+                </div>
             </div>
         );
     }

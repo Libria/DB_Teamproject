@@ -17,11 +17,10 @@ class Modalgenerate extends React.Component {
         return (
             <div className="Modalgenerate">
                 <ButtonToolbar>
-                <Button variant="primary" onClick={() => this.setState({modalShow: true})}>
-                    Launch modal with grid
-                </Button>
-            
-                <ModalWithGrid show={this.state.modalShow} onHide={() => this.setState({modalShow: false})} />
+                    <Button variant="primary" onClick={() => this.setState({modalShow: true})}>
+                        빠른 예매
+                    </Button>
+                    <ModalWithGrid show={this.state.modalShow} onHide={() => this.setState({modalShow: false})} />
                 </ButtonToolbar>
             </div>
           );

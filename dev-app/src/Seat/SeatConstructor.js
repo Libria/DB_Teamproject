@@ -8,6 +8,7 @@ class SeatConstructor extends React.Component {
         super(props);
 
         this.Numcol = [];
+        this.RCnum = false;
     }
 
     making() {
@@ -21,7 +22,8 @@ class SeatConstructor extends React.Component {
         return (
             <div className="SeatConstructor">
                 {this.Numcol.map(current =>
-                <Seat key={current} Row={this.props.Row} Col={current} Booking={this.props.Bookings[current-1]}/>
+                <Seat key={current} Row={this.props.Row} Col={current}
+                Booking={this.props.Bookings[current-1]}/>
                 )}
             </div>
         );

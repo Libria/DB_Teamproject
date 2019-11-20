@@ -39,5 +39,9 @@
 }
 
 .SeatConstructor .Null {
-    background-color: white;
+    opacity: 0;
+}
+
+.SeatConstructor .Seatnum {
+    opacity: 0;
 }
