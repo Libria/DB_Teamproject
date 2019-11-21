@@ -41,30 +41,33 @@ class Seatbook extends React.Component {
 
   render() {
     return (
-      <div className="Seatbook">
-        <div className="Seatselection">
-          <h1>Screen</h1>
-          {this.state.Seatinfo.map(current => {
-            return (
-              <Seateach key={10*(current.Row-1)+current.Col-1}
-              onhandleClick={this.handleClick.bind(this, current.Row, current.Col)}
-              Seat={current}
-              Row={current.Row}
-              Col={current.Col}/>
-            )
-          })}
-        </div>
-        <div className="Seatinformation">
-          <h1>영화 이미지 자리</h1>
-          <ul>
-            <li>영화관 이름 자리</li>
-            <li>영화 시간 자리</li>
-            <li>총 인원 : {this.count}</li>
-          </ul>
-          <Seatshow Seat={this.state.Seatinfo}/>
-          <p>{this.count*9}.000 원</p>
-          <button></button>
-          <button></button>
+      <div className="Seatbooksum">
+        <h1>인원 / 좌석 선택</h1>
+        <div className="Seatbook">
+          <div className="Seatselection">
+            <h1>Screen</h1>
+            {this.state.Seatinfo.map(current => {
+              return (
+                <Seateach key={10*(current.Row-1)+current.Col-1}
+                onhandleClick={this.handleClick.bind(this, current.Row, current.Col)}
+                Seat={current}
+                Row={current.Row}
+                Col={current.Col}/>
+              )
+            })}
+          </div>
+          <div className="Seatinformation">
+            <h1>영화 이미지 자리</h1>
+            <ul>
+              <li>영화관 이름 자리</li>
+              <li>영화 시간 자리</li>
+              <li>총 인원 : {this.count}</li>
+            </ul>
+            <Seatshow Seat={this.state.Seatinfo}/>
+            <p>{this.count*9}.000 원</p>
+            <button>이전</button>
+            <button>다음</button>
+          </div>
         </div>
       </div>
     );
