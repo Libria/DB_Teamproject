@@ -1,5 +1,5 @@
 import React from 'react';
-import { Detecting } from './Seat';
+import { Detecting } from '../src/Seat/Seat';
 import './Seatlist.css';
 
 class Seatlist extends React.Component {
