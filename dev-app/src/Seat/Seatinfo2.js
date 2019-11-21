@@ -47,13 +47,21 @@ function seatDiss(row, col, num, colnum, Seatset) {
 }
 
 var Seats22 = seatMaker(10,10);
-Seats22 = seatNulls(3,1,10,10,Seats22);
-Seats22 = seatNulls(7,1,10,10, Seats22);
-Seats22 = seatDis(1,5,10,Seats22);
-Seats22 = seatDis(2,5,10,Seats22);
-Seats22 = seatDis(3,5,10,Seats22);
-Seats22 = seatDis(4,5,10,Seats22);
+for (var i=0; i<10; i++) {
+    Seats22 = seatNull(i+1,3,10,Seats22);
+    Seats22 = seatNull(i+1,8,10,Seats22);
+}
+Seats22 = seatNulls(4,3,8,10,Seats22);
+Seats22 = seatNulls(7,3,5,10, Seats22);
+Seats22 = seatNull(8,7,10, Seats22);
+Seats22 = seatNull(9,7,10, Seats22);
+Seats22 = seatNull(10,7,10, Seats22);
+Seats22 = seatDis(4,1,10,Seats22);
+Seats22 = seatDis(4,2,10,Seats22);
+Seats22 = seatDis(5,4,10,Seats22);
 Seats22 = seatDis(5,5,10,Seats22);
+Seats22 = seatDis(6,4,10,Seats22);
+Seats22 = seatDis(6,5,10,Seats22);
 
 
 

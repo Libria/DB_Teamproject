@@ -14,7 +14,6 @@ class Seateach extends React.Component {
     
     buttonMaiking() {
         if (this.props.Seat.Bookings === 'ava') {
-            //onClick={this.handleClick.bind(this.props.Row,this.props.Col)}
             return (
                 <button className="Available"
                 onClick={this.handleClick.bind(this, this.props.Row, this.props.Col)}>
@@ -31,7 +30,7 @@ class Seateach extends React.Component {
         } else if (this.props.Seat.Bookings === 'dis') {
             return (
                 <button className="Disable" disabled="disabled">
-                    dis
+                    X
                 </button>
             )    
         } else {
@@ -54,6 +53,6 @@ Seateach.propTypes = {
     Seat: PropTypes.object.isRequired,
     Row: PropTypes.number.isRequired,
     Col: PropTypes.number.isRequired
-}
+};
 
 export default Seateach;
