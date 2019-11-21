@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 
 import SeatConstructor from '../Seat/SeatConstructor';
 import { Seats } from '../Seat/Seatinfo';
-//import Seatlist from '../../backup/Seatlist/Seatlist';
+import Seatlist from '../Seat/Seatlist';
 
 import { Detecting } from '../Seat/Seat';
 
@@ -32,9 +32,9 @@ function ModalWithGrid(props) {
             </Col>
             <Col className="show-result">
               <h3 id="resultname">선택 좌석</h3>
-              {/*<Form.Control as="select" multiple>
+              <Form.Control as="select" multiple>
                 <Seatlist></Seatlist>
-            </Form.Control>*/}
+            </Form.Control>
             </Col>
           </Row>
           {/* 

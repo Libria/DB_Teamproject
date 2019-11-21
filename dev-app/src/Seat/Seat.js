@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+export var Detecting = 0;
+
 class Seat extends React.Component {
     constructor(props) {
         super(props);
@@ -16,8 +18,10 @@ class Seat extends React.Component {
     handleClick() {
         if (this.state.isbooked === 'ava') {
             this.setState({isbooked: 'boo'});
+            Detecting += 1;
         } else if (this.state.isbooked === 'boo') {
             this.setState({isbooked: 'ava'});
+            Detecting -= 1;
         }
     }
 
@@ -44,7 +48,6 @@ class Seat extends React.Component {
         }
     }
 
-    /*
     makingList() {
         if(this.state.isbooked === 'boo') {
             return (
@@ -52,12 +55,14 @@ class Seat extends React.Component {
             )
         }
     }
-    */
 
     render() {
         return (
             <div className="Seat">
                 {this.checking()}
+                <div className="Seatnum">
+                    {this.makingList()}
+                </div>
             </div>
         );
     }
