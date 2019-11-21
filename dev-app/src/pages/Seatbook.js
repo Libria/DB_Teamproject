@@ -1,12 +1,12 @@
 import React from 'react';
 
-import SeatConstructor from './Seat/SeatConstructor';
-import { Seats } from './Seat/Seatinfo';
+import SeatConstructor from '../Seat/SeatConstructor';
+import { Seats } from '../Seat/Seatinfo';
 
-import Modalgenerate from './UI/Modalgenerate';
+import Modalgenerate from '../UI/Modalgenerate';
 
 
-class App extends React.Component {
+class Seatbook extends React.Component {
 
   render() {
     return (
@@ -25,4 +25,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Seatbook;
