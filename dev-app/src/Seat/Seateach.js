@@ -13,8 +13,10 @@ class Seateach extends React.Component {
     
     buttonMaiking() {
         if (this.props.Seat === 'ava') {
+            //onClick={this.handleClick(this.props.Row-1,this.props.Col-1)}
             return (
-                <button className="Available">R{this.props.Row}C{this.props.Col+1}
+                <button className="Available" onClick={this.handleClick(this.props.Row-1,this.props.Col-1)}>
+                    R{this.props.Row}C{this.props.Col+1}
                 </button>
             )
         } else if (this.props.Seat === 'sel') {

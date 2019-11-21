@@ -14,32 +14,26 @@ class Seatbook extends React.Component {
     }
   }
 
-  componentDidMount() {
-    console.log(this.state.Seatinfo);
-  }
-
-  generateSeatSet() {
-
-  }
-
   handleClick(row, col) {
     var tmp = this.state.Seatinfo;
-    if (tmp[row-1].Bookings[col-1] = 'ava') {
-      tmp[row-1].Bookings[col-1] = 'sel'
+    console.log("tmp");
+    console.log(tmp[0]);
+    console.log(tmp[0].Bookings);
+    if (tmp[row].Bookings[col-1] = 'ava') {
+      tmp[row].Bookings[col-1] = 'sel'
     } else if (tmp[row-1].Bookings[col-1] = 'sel') {
-      tmp[row-1].Bookings[col-1] = 'ava'
+      tmp[row].Bookings[col-1] = 'ava'
     }
     this.setState({Seatinfo: tmp});
   }
 
   render() {
-    console.log(this.state.Seatinfo);
     return (
       <div className="Seatbook">
         <h1>hello</h1>
         {this.state.Seatinfo.map(current => {
           return (
-            <Seatconstructor
+            <Seatconstructor key={current.Row}
             onhandleClick={this.handleClick}
             Seats={current}/>
           )

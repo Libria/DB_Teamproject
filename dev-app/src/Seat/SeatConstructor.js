@@ -19,7 +19,7 @@ class Seatconstructor extends React.Component {
     transfer() {
         this.col += 1;
         return (
-            <Seateach
+            <Seateach key={this.col-1}
             onhandleClick={this.handleClick}
             Seat={this.props.Seats.Bookings[this.col-1]}
             Row={this.props.Seats.Row} Col={this.col-1}/>
