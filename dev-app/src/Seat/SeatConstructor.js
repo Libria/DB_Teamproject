@@ -1,39 +1,47 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Seateach from './Seateach';
 import PropTypes from 'prop-types';
-import Seat from './Seat';
-import './SeatConstructor.css';
 
-class SeatConstructor extends React.Component {
+import './Seatconstructor.css'
+
+class Seatconstructor extends React.Component {
     constructor(props) {
         super(props);
 
-        this.Numcol = [];
-        this.RCnum = false;
+        this.handleClick = this.handleClick.bind(this);
+        this.col = 0;
     }
 
-    making() {
-        for(var i=0; i<this.props.Cols; i++) {
-            this.Numcol.push(i+1);
-        }
+    handleClick(row, col) {
+        this.props.onhandleClick(row,col);
+    }
+
+    transfer() {
+        this.col += 1;
+        return (
+            <Seateach
+            onhandleClick={this.handleClick}
+            Seat={this.props.Seats.Bookings[this.col-1]}
+            Row={this.props.Seats.Row} Col={this.col-1}/>
+        )
     }
 
     render() {
-        this.making();
+        this.col=0;
+        console.log(this.props.Seats);
         return (
-            <div className="SeatConstructor">
-                {this.Numcol.map(current =>
-                <Seat key={current} Row={this.props.Row} Col={current}
-                Booking={this.props.Bookings[current-1]}/>
-                )}
-            </div>
-        );
+            <div className="Seatconstructor">
+                {this.props.Seats.Bookings.map(current => {
+                    return (this.transfer())
+                })   
+            }
+        </div>
+        )
     }
 }
 
-SeatConstructor.propTypes = {
-    Row: PropTypes.string.isRequired,
-    Cols: PropTypes.number.isRequired,
-    Bookings: PropTypes.array.isRequired
+Seatconstructor.propTypes = {
+    Seats: PropTypes.object.isRequired
 };
 
-export default SeatConstructor;
+export default Seatconstructor;
