@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { Seats } from '../Seat/Seatinfo';
-import Seatconstructor from '../Seat/Seatconstructor';
+import { Seats2 } from '../Seat/Seatinfo2';
+import Seateach from '../Seat/Seateach';
+//import Seatconstructor from '../Seat/Seatconstructor';
+
+import '../Seat/Seatbook.css'
 
 
 class Seatbook extends React.Component {
@@ -10,34 +13,49 @@ class Seatbook extends React.Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.state = {
-      Seatinfo: Seats
+      Seatinfo: []
     }
+
+    this.count = 0;
+  }
+
+  componentDidMount() {
+    this.setState({Seatinfo: Seats2});
   }
 
   handleClick(row, col) {
     var tmp = this.state.Seatinfo;
-    console.log("tmp");
-    console.log(tmp[0]);
-    console.log(tmp[0].Bookings);
-    if (tmp[row].Bookings[col-1] = 'ava') {
-      tmp[row].Bookings[col-1] = 'sel'
-    } else if (tmp[row-1].Bookings[col-1] = 'sel') {
-      tmp[row].Bookings[col-1] = 'ava'
+    // colnum : 10 , Seatinfo2와 같게
+    var index = 10 * (row - 1) + col - 1;
+    if (tmp[index].Bookings === 'ava') {
+      tmp[index].Bookings = 'sel'
+      this.count += 1;
+      return this.setState({Seatinfo: tmp});
+    } else if (tmp[index].Bookings === 'sel') {
+      tmp[index].Bookings = 'ava'
+      this.count -= 1;
+      return this.setState({Seatinfo: tmp});
     }
-    this.setState({Seatinfo: tmp});
   }
 
   render() {
     return (
       <div className="Seatbook">
-        <h1>hello</h1>
-        {this.state.Seatinfo.map(current => {
-          return (
-            <Seatconstructor key={current.Row}
-            onhandleClick={this.handleClick}
-            Seats={current}/>
-          )
-        })}
+        <div className="Seatselection">
+          <h1>Seat Selection</h1>
+          {this.state.Seatinfo.map(current => {
+            return (
+              <Seateach key={10*(current.Row-1)+current.Col-1}
+              onhandleClick={this.handleClick.bind(this, current.Row, current.Col)}
+              Seat={current}
+              Row={current.Row}
+              Col={current.Col}/>
+            )
+          })}
+        </div>
+        <div className="Seatinformation">
+          <p>Total Seat : {this.count}</p>
+        </div>
       </div>
     );
   }
