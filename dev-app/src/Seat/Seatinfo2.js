@@ -63,7 +63,5 @@ Seats22 = seatDis(5,5,10,Seats22);
 Seats22 = seatDis(6,4,10,Seats22);
 Seats22 = seatDis(6,5,10,Seats22);
 
-
-
 export const Seats2 = Seats22;
 

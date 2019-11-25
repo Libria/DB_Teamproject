@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Seatbook, Home } from '../pages';
+import { Seatbook, Home, Selector } from '../pages';
 import Menu from '../manage/Menu';
 
 class App extends Component {
@@ -10,6 +10,7 @@ class App extends Component {
                 <Menu></Menu>
                 <Route exact path="/" component={Home} />
                 <Route path="/Seatbook" component={Seatbook} />
+                <Route exact path="/Selector" component={Selector} />
             </div>
         );
     }

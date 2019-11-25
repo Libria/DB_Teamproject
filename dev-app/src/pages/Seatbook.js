@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { Seats2 } from '../Seat/Seatinfo2';
-import Seateach from '../Seat/Seateach';
-
-import Seatshow from '../Seat/Seatshow';
+import { Seateach, Seatshow, Seats2, Seatsinit } from '../Seat';
 
 import '../Seat/Seatbook.css'
 
@@ -12,17 +9,25 @@ class Seatbook extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.count = 0;
 
     this.state = {
       Seatinfo: []
     }
-
-    this.count = 0;
   }
 
   componentDidMount() {
     this.setState({Seatinfo: Seats2});
   }
+
+  componentWillUnmount() {
+    for (var i=0; i < Seats2.length; i++) {
+      if(Seats2[i].Bookings === 'sel') {
+        Seats2[i].Bookings = 'ava';
+      }
+    }
+  }
+  
 
   handleClick(row, col) {
     var tmp = this.state.Seatinfo;
@@ -57,7 +62,7 @@ class Seatbook extends React.Component {
             })}
           </div>
           <div className="Seatinformation">
-            <h1>영화 이미지 자리</h1>
+            <h1>영화 이미지</h1>
             <ul>
               <li>영화관 이름 자리</li>
               <li>영화 시간 자리</li>

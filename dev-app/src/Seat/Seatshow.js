@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Seatshow extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
@@ -12,7 +9,8 @@ class Seatshow extends React.Component {
                 <ul>
                     {this.props.Seat.map(current => {
                         if (current.Bookings === 'sel') {
-                            return <li>{current.Row}C{current.Col}</li>
+                            var index = 10 * (current.Row - 1) + current.Col - 1;
+                            return (<li key={index}>{current.Row}C{current.Col}</li>)
                         }
                     })}
                 </ul>
@@ -22,7 +20,7 @@ class Seatshow extends React.Component {
 }
 
 Seatshow.propTypes = {
-    Seat: PropTypes.object.isRequired
+    Seat: PropTypes.array.isRequired
 };
 
 export default Seatshow;

@@ -1,8 +1,20 @@
-.Seatbooksum {
-    box-shadow: 0 13px 27px -5px rgba(0,0,0,0.75),
-    0 8px 16px -8px rgba(0,0,0,0.3), 0 -6px 16px -6px rgba(0,0,0,0.025);
-    width: 50%;
-    margin-left: 25%;
+@media ( min-width: 1860px ) {
+    .Seatbooksum {
+        box-shadow: 0 13px 27px -5px rgba(0,0,0,0.75),
+        0 8px 16px -8px rgba(0,0,0,0.3), 0 -6px 16px -6px rgba(0,0,0,0.025);
+        width: 50%;
+        max-width: 925px;
+        margin: auto;
+    }
+}
+
+@media ( min-width: 1px ) {
+    .Seatbooksum {
+        box-shadow: 0 13px 27px -5px rgba(0,0,0,0.75),
+        0 8px 16px -8px rgba(0,0,0,0.3), 0 -6px 16px -6px rgba(0,0,0,0.025);
+        width: 925px;
+        margin: auto;
+    }
 }
 
 .Seatbooksum > h1 {
@@ -80,6 +92,10 @@
     font-size: 1.5rem;
     margin: 10px;
     padding: 10px;
+}
+
+.Seatinformation > button:focus {
+    outline: none;
 }
 
 .Seatinformation > button {
