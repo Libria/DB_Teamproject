@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 class DateSlide extends React.Component {
     constructor(props) {
         super(props);
@@ -7,12 +8,13 @@ class DateSlide extends React.Component {
         this.selectDate = this.props.onSelectDate.bind(this);
 
         this.state = {
-            selected: 0
+            selected: 0,
+            clicked: null
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({selected: nextProps.selected});
+        this.setState({selected: nextProps.selected, clicked: nextProps.clicked});
     }
 
     selectDate(index) {
@@ -52,13 +54,25 @@ class DateSlide extends React.Component {
         return days;
     }
 
+    renderSlide(num) {
+        var days = this.makingDateSet();
+        if (num === this.state.clicked) {
+            return <button className="LocalDate" key={num} style={{backgroundColor: 'rgb(48,156,166)'}}
+            onClick={this.selectDate.bind(this, num)}>{days[num]}</button>
+        } else {
+            return <button className="LocalDate" key={num}
+            onClick={this.selectDate.bind(this, num)}>{days[num]}</button>
+        }
+    }
+
     renderDatebar() {
         var days = this.makingDateSet();
+        var index = [0,1,2,3,4];
         return (
             <div className="DateSlide">
                 <button className="MoveDate"
                 onClick={this.selectDate.bind(this, this.state.selected-1)}>◀</button>
-                <button className="LocalDate"
+                {/*<button className="LocalDate"
                 onClick={this.selectDate.bind(this, this.state.selected)}>{days[this.state.selected]}</button>
                 <button className="LocalDate"
                 onClick={this.selectDate.bind(this, this.state.selected+1)}>{days[this.state.selected+1]}</button>
@@ -67,7 +81,10 @@ class DateSlide extends React.Component {
                 <button className="LocalDate"
                 onClick={this.selectDate.bind(this, this.state.selected+3)}>{days[this.state.selected+3]}</button>
                 <button className="LocalDate"
-                onClick={this.selectDate.bind(this, this.state.selected+4)}>{days[this.state.selected+4]}</button>
+                onClick={this.selectDate.bind(this, this.state.selected+4)}>{days[this.state.selected+4]}</button>*/}
+                {index.map(current => {
+                    return this.renderSlide(current+this.state.selected);
+                })}
                 <button className="MoveDate"
                 onClick={this.selectDate.bind(this, this.state.selected+1)}>▶</button>
             </div>

@@ -2,6 +2,8 @@ import React from 'react';
 import { MovieSelector } from '../MovieSelect';
 import { TheaterSelector } from '../TheaterSelect';
 import { DateSelector } from '../DateSelect';
+import { TimeSelector } from '../TimeSelect';
+import './Selector.css';
 
 class Selector extends React.Component {
     render() {
@@ -13,7 +15,7 @@ class Selector extends React.Component {
                     <MovieSelector></MovieSelector>
                 </div>
                 <div className="RightSelector">
-
+                    <TimeSelector></TimeSelector>
                 </div>
             </div>
         );

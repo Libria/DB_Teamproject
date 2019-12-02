@@ -7,7 +7,8 @@ class DateSelector extends React.Component {
         super(props);
 
         this.state = {
-            selected: 0
+            selected: 0,
+            clicked: null
         }
 
         this.selectDate = this.selectDate.bind(this);
@@ -15,14 +16,14 @@ class DateSelector extends React.Component {
     }
 
     selectAllTheater() {
-        this.setState({selected: 0});
+        this.setState({selected: 0, clicked: null});
     }
 
     selectDate(index) {
         if (index > -1 && index < 26) {
-            this.setState({selected: index});
+            this.setState({selected: index, clicked: index});
         } else if (index > 25 && index < 30) {
-            this.setState({selected: 25});
+            this.setState({selected: 25, clicked: index});
         }
     }
 
@@ -35,7 +36,8 @@ class DateSelector extends React.Component {
                 </div>
                 <div className="DateSelContent">
                     <DateSlide selected={this.state.selected}
-                    onSelectDate={this.selectDate}></DateSlide>
+                    onSelectDate={this.selectDate}
+                    clicked={this.state.clicked}></DateSlide>
                 </div>
             </div>
         );
