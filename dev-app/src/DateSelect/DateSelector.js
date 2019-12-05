@@ -1,6 +1,7 @@
 import React from 'react';
 import './DateSelector.css';
 import DateSlide from './DateSlide';
+import PropTypes from 'prop-types';
 
 class DateSelector extends React.Component {
     constructor(props) {
@@ -8,11 +9,24 @@ class DateSelector extends React.Component {
 
         this.state = {
             selected: 0,
-            clicked: null
+            clicked: null,
+            reload: false,
+            sereload: false
         }
 
         this.selectDate = this.selectDate.bind(this);
         this.selectAllTheater = this.selectAllTheater.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({reload: nextProps.Reload, sereload: nextProps.SeReload});
+        this.checkReload();
+    }
+
+    checkReload() {
+        if (this.state.reload === true && this.state.sereload === true) {
+            this.selectAllTheater();
+        }
     }
 
     selectAllTheater() {
@@ -42,6 +56,11 @@ class DateSelector extends React.Component {
             </div>
         );
     }
+}
+
+DateSelector.propTypes = {
+    Reload: PropTypes.bool.isRequired,
+    SeReload: PropTypes.bool.isRequired
 }
 
 export default DateSelector;

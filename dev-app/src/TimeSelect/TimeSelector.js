@@ -2,6 +2,7 @@ import React from 'react';
 import './TimeSelector.css';
 
 import {TimeSet} from './SampleTime';
+import PropTypes from 'prop-types';
 
 class TimeSelector extends React.Component {
     constructor(props) {
@@ -10,8 +11,28 @@ class TimeSelector extends React.Component {
         this.state = {
             selected: 0,
             clicked: null,
-            timeline: null
+            timeline: null,
+            reload: false,
+            sereload: false
         }
+
+        this.popupSeat = this.props.onPopupSeat.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({reload: nextProps.Reload, sereload: nextProps.SeReload});
+        this.checkReload();
+    }
+
+
+    checkReload() {
+        if (this.state.reload === true && this.state.sereload === true) {
+            this.setState({selected: 0, clicked: null, timeline: null, reload: false});
+        }
+    }
+
+    popupSeat() {
+        this.props.onPopupSeat();
     }
 
     selectTime(index) {
@@ -60,7 +81,8 @@ class TimeSelector extends React.Component {
         var seltime = Math.floor(current.start.substring(0,2));
         if (seltime >= this.state.clicked && seltime < this.state.clicked+1) {
             return (
-                <button className="TimeSet" key={current.index} style={{border: 'solid 1px #99CCFF'}}>
+                <button className="TimeSet" key={current.index} style={{border: 'solid 1px #99CCFF'}}
+                onClick={this.popupSeat.bind(this)}>
                     <div className="TimeArea">
                         <h3>{current.start}</h3><p> ~ {current.end}</p>
                     </div>
@@ -78,7 +100,8 @@ class TimeSelector extends React.Component {
             );
         } else {
             return (
-                <button className="TimeSet" key={current.index}>
+                <button className="TimeSet" key={current.index}
+                onClick={this.popupSeat.bind(this)}>
                     <div className="TimeArea">
                         <h3>{current.start}</h3><p> ~ {current.end}</p>
                     </div>
@@ -118,6 +141,12 @@ class TimeSelector extends React.Component {
             </div>
         )
     }
+}
+
+TimeSelector.propTypes = {
+    Reload: PropTypes.bool.isRequired,
+    onPopupSeat: PropTypes.func.isRequired,
+    SeReload: PropTypes.bool.isRequired
 }
 
 export default TimeSelector;

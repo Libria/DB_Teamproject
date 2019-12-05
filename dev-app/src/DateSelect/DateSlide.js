@@ -72,16 +72,6 @@ class DateSlide extends React.Component {
             <div className="DateSlide">
                 <button className="MoveDate"
                 onClick={this.selectDate.bind(this, this.state.selected-1)}>◀</button>
-                {/*<button className="LocalDate"
-                onClick={this.selectDate.bind(this, this.state.selected)}>{days[this.state.selected]}</button>
-                <button className="LocalDate"
-                onClick={this.selectDate.bind(this, this.state.selected+1)}>{days[this.state.selected+1]}</button>
-                <button className="LocalDate"
-                onClick={this.selectDate.bind(this, this.state.selected+2)}>{days[this.state.selected+2]}</button>
-                <button className="LocalDate"
-                onClick={this.selectDate.bind(this, this.state.selected+3)}>{days[this.state.selected+3]}</button>
-                <button className="LocalDate"
-                onClick={this.selectDate.bind(this, this.state.selected+4)}>{days[this.state.selected+4]}</button>*/}
                 {index.map(current => {
                     return this.renderSlide(current+this.state.selected);
                 })}
