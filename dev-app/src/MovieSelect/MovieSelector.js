@@ -3,6 +3,7 @@ import './MovieSelector.css';
 
 import SelectMovie from './SelectMovie';
 //import { MovieSet } from './SampleSet';
+import PropTypes from 'prop-types';
 
 import axios from 'axios';
 
@@ -15,7 +16,9 @@ class MovieSelector extends React.Component {
             tmpSelected : [],
             modal: false,
             movies: [],
-            isLoading: true
+            isLoading: true,
+            reload: false,
+            sereload: false
         };
 
         this.moveSelectMovie = this.moveSelectMovie.bind(this);
@@ -39,6 +42,17 @@ class MovieSelector extends React.Component {
 
     componentDidMount() {
         this.getMovie();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({reload: nextProps.Reload, sereload: nextProps.SeReload});
+        this.checkReload();
+    }
+        
+    checkReload() {
+        if (this.state.reload === true && this.state.sereload === true) {
+            this.selectAllTheater();
+        }
     }
 
     moveSelectMovie() {
@@ -112,7 +126,7 @@ class MovieSelector extends React.Component {
         return (
             <div key={current} className="ConfirmImg">
             <button onClick={this.cancelMovie.bind(this, current)}>X</button>
-            <img src={this.state.movies[i].medium_cover_image} alt={this.state.movies[i].title} width="95px" height="140px" ></img>
+            <img src={this.state.movies[i].medium_cover_image} alt={this.state.movies[i].title} width="97px" height="140px" ></img>
             </div>
         );
     }
@@ -189,6 +203,11 @@ class MovieSelector extends React.Component {
             </div>
         );
     }
+}
+
+MovieSelector.propTypes = {
+    Reload: PropTypes.bool.isRequired,
+    SeReload: PropTypes.bool.isRequired
 }
 
 export default MovieSelector;

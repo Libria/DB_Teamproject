@@ -26,6 +26,7 @@
 
 .Seatbook {
     display: flex;
+    background-color: white;
 }
 
 /* Seatselection 자리 고르는 부분 */
