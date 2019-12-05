@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { throwStatement } from 'babel-types';
 
 class Seateach extends React.Component {
     constructor(props) {
