@@ -92,7 +92,6 @@ class SelectTheater extends React.Component {
     }
 
     render() {
-        console.log(this.state.tmpSelected);
         return (
             <div className="SelectTheater">
                 <div className="SelectTheNav">

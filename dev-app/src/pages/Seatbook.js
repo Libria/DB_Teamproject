@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Seateach, Seatshow, Seats2, Seatsinit } from '../Seat';
-
+import { Seateach, Seatshow, Seats2 } from '../Seat';
+import PropTypes from 'prop-types';
 import '../Seat/Seatbook.css'
 
 
@@ -9,10 +9,13 @@ class Seatbook extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.checkReload = this.checkReload.bind(this);
+    this.popupSeat = this.props.onPopupSeat.bind(this);
     this.count = 0;
 
     this.state = {
-      Seatinfo: []
+      Seatinfo: [],
+      reload: false
     }
   }
 
@@ -20,6 +23,7 @@ class Seatbook extends React.Component {
     this.setState({Seatinfo: Seats2});
   }
 
+  /*
   componentWillUnmount() {
     for (var i=0; i < Seats2.length; i++) {
       if(Seats2[i].Bookings === 'sel') {
@@ -27,7 +31,25 @@ class Seatbook extends React.Component {
       }
     }
   }
-  
+  */
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({reload: nextProps.Reload});
+    this.checkReload();
+  }
+
+  checkReload() {
+    if (this.state.reload === true) {
+      var tmp = this.state.Seatinfo;
+      tmp.map(current => {
+        if (current.Bookings === 'sel') {
+          current.Bookings = 'ava';
+        }
+      });
+      this.count = 0;
+      this.setState({Seatinfo: tmp});
+    }
+  }
 
   handleClick(row, col) {
     var tmp = this.state.Seatinfo;
@@ -42,6 +64,10 @@ class Seatbook extends React.Component {
       this.count -= 1;
       return this.setState({Seatinfo: tmp});
     }
+  }
+
+  popupSeat() {
+    this.props.onPopupSeat();
   }
 
   render() {
@@ -70,13 +96,18 @@ class Seatbook extends React.Component {
             </ul>
             <Seatshow Seat={this.state.Seatinfo}/>
             <p>{this.count*9}.000 원</p>
-            <button>이전</button>
+            <button onClick={this.popupSeat.bind(this)}>이전</button>
             <button>다음</button>
           </div>
         </div>
       </div>
     );
   }
+}
+
+Seatbook.propTypes = {
+  Reload: PropTypes.bool.isRequired,
+  onPopupSeat: PropTypes.func.isRequired
 }
 
 export default Seatbook;

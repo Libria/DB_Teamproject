@@ -2,6 +2,7 @@ import React from 'react';
 import './TheaterSelector.css';
 import { Theaterinfo } from './Theaterinfo';
 import SelectTheater from './SelectTheater';
+import PropTypes from 'prop-types';
 
 class TheaterSelector extends React.Component {
     constructor() {
@@ -11,7 +12,9 @@ class TheaterSelector extends React.Component {
             Selected : [],
             tmpSelected : [],
             modal: false,
-            dropdown: ''
+            dropdown: '',
+            reload: false,
+            sereload: false
         };
 
         this.moveSelectTheater = this.moveSelectTheater.bind(this);
@@ -22,6 +25,17 @@ class TheaterSelector extends React.Component {
 
         //
         this.showDropdown = this.showDropdown.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({reload: nextProps.Reload, sereload: nextProps.SeReload});
+        this.checkReload();
+    }
+
+    checkReload() {
+        if (this.state.reload === true && this.state.sereload === true) {
+            this.selectAllTheater();
+        }
     }
 
     moveSelectTheater() {
@@ -187,6 +201,11 @@ class TheaterSelector extends React.Component {
             </div>
         )
     }
+}
+
+TheaterSelector.propTypes = {
+    Reload: PropTypes.bool.isRequired,
+    SeReload: PropTypes.bool.isRequired
 }
 
 export default TheaterSelector;
