@@ -92,8 +92,8 @@ class TimeSelector extends React.Component {
                     </div>
                     <span>|</span>
                     <div className="TimeTheater">
-                        <p>{current.theater}</p>
-                        <p>{current.theaternum}관</p>
+                        <p>{current.theater}</p><br/>
+                        <p>{current.theaternum}관</p><br/>
                         <p>{current.nowseat} / {current.maxseat}</p>
                     </div>
                 </button>

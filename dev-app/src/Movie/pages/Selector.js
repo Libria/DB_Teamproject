@@ -18,6 +18,7 @@ class Selector extends React.Component {
         }
 
         this.popupSeat = this.popupSeat.bind(this);
+        this.toggleSelector = this.props.onToggleSelector.bind(this);
     }
     
     componentWillReceiveProps(nextProps) {
@@ -31,6 +32,10 @@ class Selector extends React.Component {
         } else {
             this.setState({seat: true});
         }
+    }
+
+    toggleSelector() {
+        this.props.onToggleSelector();
     }
 
     render() {
@@ -52,7 +57,9 @@ class Selector extends React.Component {
                 <div className="SeatModal"
                 style={{display: this.state.seat ? 'block' : 'none'}}>
                     <Seatbook Reload={this.state.seat}
-                    onPopupSeat={this.popupSeat}></Seatbook>
+                    onPopupSeat={this.popupSeat}
+                    onToggleSelector={this.toggleSelector}
+                    ></Seatbook>
                 </div>
             </div>
         );

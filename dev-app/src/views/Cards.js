@@ -12,7 +12,7 @@ export class MovieCard extends Component {
             {movie.Title}
           </h5>
           <button className="btn btn-primary blue">
-            Booking
+            Learn More
           </button>
         </div>
       </div>

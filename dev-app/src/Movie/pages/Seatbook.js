@@ -11,6 +11,8 @@ class Seatbook extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.checkReload = this.checkReload.bind(this);
     this.popupSeat = this.props.onPopupSeat.bind(this);
+    this.alertConfirm = this.alertConfirm.bind(this);
+    this.toggleSelector = this.props.onToggleSelector.bind(this);
     this.count = 0;
 
     this.state = {
@@ -70,6 +72,16 @@ class Seatbook extends React.Component {
     this.props.onPopupSeat();
   }
 
+  alertConfirm() {
+    alert("결제 되었습니다.");
+    this.popupSeat();
+    this.toggleSelector();
+  }
+
+  toggleSelector() {
+    this.props.onToggleSelector();
+  }
+
   render() {
     return (
       <div className="Seatbooksum">
@@ -97,7 +109,7 @@ class Seatbook extends React.Component {
             <Seatshow Seat={this.state.Seatinfo}/>
             <p>{this.count*9}.000 원</p>
             <button onClick={this.popupSeat.bind(this)}>이전</button>
-            <button>다음</button>
+            <button onClick={this.alertConfirm}>다음</button>
           </div>
         </div>
       </div>
