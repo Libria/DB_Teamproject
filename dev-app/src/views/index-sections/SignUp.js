@@ -17,6 +17,8 @@ import {
   Row
 } from "reactstrap";
 
+import './SignUp.css';
+
 // core components
 
 class SignUp extends React.Component {
@@ -224,6 +226,9 @@ class SignUp extends React.Component {
           <div className="Logined">
             <h3>UserName: {this.state.Users[index].username}</h3>
             <p>ID : {this.state.Users[index].id}</p>
+            <div className="BookedList">
+              
+            </div>
           </div>
         </div>
     )

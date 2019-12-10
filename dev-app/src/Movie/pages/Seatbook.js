@@ -15,6 +15,7 @@ class Seatbook extends React.Component {
     this.toggleSelector = this.props.onToggleSelector.bind(this);
     this.selectedSet = this.props.selectedSet;
     this.count = 0;
+    this.tmpSel = [];
 
     this.state = {
       Seatinfo: [],
@@ -61,10 +62,13 @@ class Seatbook extends React.Component {
     if (tmp[index].Bookings === 'ava') {
       tmp[index].Bookings = 'sel'
       this.count += 1;
+      this.tmpSel.push(index);
       return this.setState({Seatinfo: tmp});
     } else if (tmp[index].Bookings === 'sel') {
       tmp[index].Bookings = 'ava'
       this.count -= 1;
+      var arrindex = this.tmpSel.indexOf(index);
+      this.tmpSel.splice(arrindex,1);
       return this.setState({Seatinfo: tmp});
     }
   }
@@ -75,6 +79,13 @@ class Seatbook extends React.Component {
 
   alertConfirm() {
     alert("결제 되었습니다.");
+    /*
+    var tmp = this.state.Seatinfo;
+    for (var i=0; i<this.tmpSel.length; i++) {
+      tmp[this.tmpSel[i]].Bookings = 'dis';
+    }
+    this.setState({Seatinfo: tmp});
+    */
     this.popupSeat();
     this.toggleSelector();
   }
