@@ -1,5 +1,6 @@
 import React from "react";
 import Card from './Cards';
+import {Carousel} from 'react-bootstrap';
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
 import DarkFooter from "components/Footers/DarkFooter.js";
@@ -22,6 +23,75 @@ function Index() {
       <IndexNavbar />
       <div className="wrapper">
         <IndexHeader />
+        <Carousel>
+          <Carousel.Item>
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+          </Carousel.Item>
+          <Carousel.Item>
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+          </Carousel.Item>
+          <Carousel.Item>
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+            <Card movie={{
+              Poster: require('../assets/img/movie.jpg'),
+              Title: 'Movie Title',
+              imbdID: '123455',
+            }} />
+          </Carousel.Item>
+        </Carousel>
+        {/*
 				<Card movie={{
 			Poster: require('../assets/img/movie.jpg'),
 			Title: 'Movie Title',
@@ -41,7 +111,8 @@ function Index() {
 			Poster: require('../assets/img/movie.jpg'),
 			Title: 'Movie Title',
 			imbdID: '123455',
-		}} />
+    }} />
+  */}
         <div className="main">
           <SignUp />
         </div>

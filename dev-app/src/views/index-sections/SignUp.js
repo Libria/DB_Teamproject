@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import axios from 'axios';
 // reactstrap components
 import {
   Button,
@@ -27,18 +27,36 @@ class SignUp extends React.Component {
       firstFocus: false,
       lastFocus: false,
       emailFocus: false,
-      logined: false
+      logined: false,
+      Users: []
     }
 
+    this.loginUsers = [];
     this.checkId = this.checkId.bind(this);
   }
 
+  getUser = async() => {
+    const User = await axios.get("http://localhost:8000/customers/serializer/user/?format=json");
+    this.setState({Users: User.data});
+  }
+
+  getInputed() {
+    var inputs = [];
+    inputs.push(document.getElementById('userid').value);
+    inputs.push(document.getElementById('userpw1').value);
+    inputs.push(document.getElementById('userpw2').value);
+    return inputs;
+  }
+
   checkId() {
-    // DB 확인 절차
+    var inputs = this.getInputed();
+    console.log(this.state.Users);
+    console.log(inputs);
     this.setState({logined: true})
   }
 
   renderLogin() {
+    this.getUser();
     return (
       <>
         <div
@@ -53,7 +71,7 @@ class SignUp extends React.Component {
           <Container>
             <Row>
               <Card className="card-signup" data-background-color="blue">
-                <Form action="" className="form" method="">
+                <Form action="_self" className="form" method="">
                   <CardHeader className="text-center">
                     <CardTitle className="title-up" tag="h3">
                       Sign Up
@@ -97,7 +115,7 @@ class SignUp extends React.Component {
                           <i className="now-ui-icons users_circle-08"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input
+                      <Input id="userid"
                         placeholder="ID..."
                         type="text"
                         onFocus={() => this.setState({FirstFocus: true})}
@@ -114,7 +132,7 @@ class SignUp extends React.Component {
                           <i className="now-ui-icons text_caps-small"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input
+                      <Input id="userpw1"
                         placeholder="Password..."
                         type="text"
                         onFocus={() => this.setState({lastFocus: true})}
@@ -132,7 +150,7 @@ class SignUp extends React.Component {
                           <i className="now-ui-icons text_caps-small"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input
+                      <Input id="userpw2"
                         placeholder="Confrim Password..."
                         type="text"
                         onFocus={() => this.setState({lastFocus: true})}
@@ -162,7 +180,6 @@ class SignUp extends React.Component {
                     <Button
                       className="btn-neutral btn-round"
                       color="info"
-                      href="#pablo"
                       onClick={this.checkId.bind(this)}
                       size="lg"
                     >
@@ -193,6 +210,7 @@ class SignUp extends React.Component {
   }
 
   renderLogined() {
+    var index = 0;
     return (
       <div
           className="section section-signup"
@@ -202,7 +220,12 @@ class SignUp extends React.Component {
             backgroundPosition: "top center",
             minHeight: "700px"
           }}
-        ></div>
+        >
+          <div className="Logined">
+            <h3>UserName: {this.state.Users[index].username}</h3>
+            <p>ID : {this.state.Users[index].id}</p>
+          </div>
+        </div>
     )
   }
 

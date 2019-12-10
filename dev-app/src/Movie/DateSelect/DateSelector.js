@@ -24,16 +24,18 @@ class DateSelector extends React.Component {
     }
 
     checkReload() {
-        if (this.state.reload === true && this.state.sereload === true) {
+        if (this.state.reload === false && this.state.sereload === true) {
             this.selectAllTheater();
         }
     }
 
     selectAllTheater() {
+        this.props.onSelectedConfirm('Date', null);
         this.setState({selected: 0, clicked: null});
     }
 
     selectDate(index) {
+        this.props.onSelectedConfirm('Date', index);
         if (index > -1 && index < 26) {
             this.setState({selected: index, clicked: index});
         } else if (index > 25 && index < 30) {

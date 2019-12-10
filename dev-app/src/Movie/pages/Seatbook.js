@@ -13,6 +13,7 @@ class Seatbook extends React.Component {
     this.popupSeat = this.props.onPopupSeat.bind(this);
     this.alertConfirm = this.alertConfirm.bind(this);
     this.toggleSelector = this.props.onToggleSelector.bind(this);
+    this.selectedSet = this.props.selectedSet;
     this.count = 0;
 
     this.state = {
@@ -82,7 +83,19 @@ class Seatbook extends React.Component {
     this.props.onToggleSelector();
   }
 
+  getImg() {
+    var name = this.selectedSet.Time.name;
+    var src = null;
+    for (var i=0; i<this.selectedSet.Movie.length; i++) {
+      if (name === this.selectedSet.Movie[i].title) {
+        src = this.selectedSet.Movie[i].medium_cover_image;
+      }
+    }
+    return src;
+  }
+
   render() {
+    var imgsrc = this.getImg();
     return (
       <div className="Seatbooksum">
         <h1>인원 / 좌석 선택</h1>
@@ -100,10 +113,10 @@ class Seatbook extends React.Component {
             })}
           </div>
           <div className="Seatinformation">
-            <h1>영화 이미지</h1>
+            <img src={imgsrc}></img>
             <ul>
-              <li>영화관 이름 자리</li>
-              <li>영화 시간 자리</li>
+              <li>영화관 : {this.selectedSet.Time.theater}</li>
+              <li>상영시간 : {this.selectedSet.Time.start} ~ {this.selectedSet.Time.end}</li>
               <li>총 인원 : {this.count}</li>
             </ul>
             <Seatshow Seat={this.state.Seatinfo}/>

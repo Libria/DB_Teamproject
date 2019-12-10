@@ -17,6 +17,8 @@ class TimeSelector extends React.Component {
         }
 
         this.popupSeat = this.props.onPopupSeat.bind(this);
+        this.timeConfirm = this.timeConfirm.bind(this);
+        this.selectedSet = this.props.selectedSet;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -24,15 +26,19 @@ class TimeSelector extends React.Component {
         this.checkReload();
     }
 
-
     checkReload() {
-        if (this.state.reload === true && this.state.sereload === true) {
+        if (this.state.reload === false && this.state.sereload === true) {
             this.setState({selected: 0, clicked: null, timeline: null, reload: false});
         }
     }
 
     popupSeat() {
         this.props.onPopupSeat();
+    }
+
+    timeConfirm(current) {
+        this.props.onSelectedConfirm('Time', current);
+        this.popupSeat();
     }
 
     selectTime(index) {
@@ -78,11 +84,12 @@ class TimeSelector extends React.Component {
     }
 
     renderScheSet(current) {
+
         var seltime = Math.floor(current.start.substring(0,2));
         if (seltime >= this.state.clicked && seltime < this.state.clicked+1) {
             return (
                 <button className="TimeSet" key={current.index} style={{border: 'solid 1px #99CCFF'}}
-                onClick={this.popupSeat.bind(this)}>
+                onClick={this.timeConfirm.bind(this, current)}>
                     <div className="TimeArea">
                         <h3>{current.start}</h3><p> ~ {current.end}</p>
                     </div>
@@ -101,7 +108,7 @@ class TimeSelector extends React.Component {
         } else {
             return (
                 <button className="TimeSet" key={current.index}
-                onClick={this.popupSeat.bind(this)}>
+                onClick={this.timeConfirm.bind(this, current)}>
                     <div className="TimeArea">
                         <h3>{current.start}</h3><p> ~ {current.end}</p>
                     </div>
@@ -121,8 +128,22 @@ class TimeSelector extends React.Component {
     }
 
     renderSchedule() {
+        var TimeSet2 = [];
+        if (this.selectedSet.Movie.length !== 0) {
+            for (var i=0; i<TimeSet.length; i++) {
+                for (var j=0; j<this.selectedSet.Movie.length; j++) {
+                    if (TimeSet[i].name === this.selectedSet.Movie[j].title) {
+                        for (var k=0; k<this.selectedSet.Theater.length; k++) {
+                            if (TimeSet[i].theater === this.selectedSet.Theater[k].name) {
+                                TimeSet2.push(TimeSet[i]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return (
-            TimeSet.map(current => {
+            TimeSet2.map(current => {
                 return this.renderScheSet(current);
             })
         );

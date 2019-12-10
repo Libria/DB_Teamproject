@@ -33,7 +33,7 @@ class TheaterSelector extends React.Component {
     }
 
     checkReload() {
-        if (this.state.reload === true && this.state.sereload === true) {
+        if (this.state.reload === false && this.state.sereload === true) {
             this.selectAllTheater();
         }
     }
@@ -60,6 +60,11 @@ class TheaterSelector extends React.Component {
         for (var i=0; i<this.state.tmpSelected.length; i++) {
             tmp.push(this.state.tmpSelected[i]);
         }
+        var s = [];
+        tmp.map(current => {
+            s.push(Theaterinfo[current-1]);
+        });
+        this.props.onSelectedConfirm('Theater', s);
         this.setState({Selected: tmp, modal: false});
     }
 

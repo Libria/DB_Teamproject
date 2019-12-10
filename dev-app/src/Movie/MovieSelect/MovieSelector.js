@@ -28,7 +28,7 @@ class MovieSelector extends React.Component {
         this.confirmMovie = this.confirmMovie.bind(this);
         this.cancelMovie = this.cancelMovie.bind(this);
 
-        this.state.movies = [];
+        this.onSelected = [];
     }
 
     getMovie = async() => {
@@ -50,7 +50,8 @@ class MovieSelector extends React.Component {
     }
         
     checkReload() {
-        if (this.state.reload === true && this.state.sereload === true) {
+        if (this.state.reload === false && this.state.sereload === true) {
+            this.onSelected = [];
             this.selectAllMovie();
         }
     }
@@ -101,9 +102,19 @@ class MovieSelector extends React.Component {
 
     confirmMovie() {
         var tmp = [];
+        this.onSelected = [];
         for (var i=0; i<this.state.tmpSelected.length; i++) {
             tmp.push(this.state.tmpSelected[i]);
         }
+        for (var j=0; j<tmp.length;) {
+            for (i=0; i<this.state.movies.length; i++) {
+                if (this.state.movies[i].id === tmp[j]) {
+                    this.onSelected.push(this.state.movies[i]);
+                    j++;
+                }
+            }
+        }
+        this.props.onSelectedConfirm('Movie',this.onSelected);
         this.setState({Selected: tmp, modal: false});
     }
 

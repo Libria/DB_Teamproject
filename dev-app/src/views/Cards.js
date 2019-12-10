@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './Cards.css';
 
 export class MovieCard extends Component {
   render() {
@@ -11,9 +12,7 @@ export class MovieCard extends Component {
           <h5 className="text-light card-title">
             {movie.Title}
           </h5>
-          <button className="btn btn-primary blue">
-            Learn More
-          </button>
+          <p className="CardsSummary">줄거리</p>
         </div>
       </div>
     );

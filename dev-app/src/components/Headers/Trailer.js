@@ -19,7 +19,7 @@ class Trailer extends React.Component {
     
     render() {
         return (
-        <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect}>
+        <Carousel activeIndex={this.state.index} direction={this.state.direction} onSelect={this.handleSelect} interval={150000}>
             <Carousel.Item>
             {/*<img
                 className="d-block w-100"
@@ -33,7 +33,7 @@ class Trailer extends React.Component {
             </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-            <iframe width="800" height="500" src="https://www.youtube.com/embed/0ptz18xhPjs?rel=0;amp;autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="800" height="500" src="https://www.youtube.com/embed/0ptz18xhPjs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     
             <Carousel.Caption>
                 <h3 style={{float: 'right'}}>포드 V 페라리</h3>
@@ -41,7 +41,7 @@ class Trailer extends React.Component {
             </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-            <iframe width="800" height="500" src="https://www.youtube.com/embed/KJF6vs5SuUs?rel=0;amp;autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="800" height="500" src="https://www.youtube.com/embed/KJF6vs5SuUs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     
             <Carousel.Caption>
                 <h3 style={{float: 'right'}}>나이브스 아웃</h3>
