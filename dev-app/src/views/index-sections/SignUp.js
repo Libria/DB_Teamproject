@@ -30,11 +30,19 @@ class SignUp extends React.Component {
       lastFocus: false,
       emailFocus: false,
       logined: false,
-      Users: []
+      Users: [],
+      User: null,
+      regit: false
     }
 
     this.loginUsers = [];
     this.checkId = this.checkId.bind(this);
+    this.checkRegit = this.checkRegit.bind(this);
+    this.adderId = this.adderId.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUser();
   }
 
   getUser = async() => {
@@ -52,21 +60,55 @@ class SignUp extends React.Component {
 
   checkId() {
     var inputs = this.getInputed();
-    console.log(this.state.Users);
-    console.log(inputs);
-    this.setState({logined: true})
+    var include = false;
+    var user = null;
+    for (var i=0; i<this.state.Users.length; i++) {
+      if (inputs[0] === this.state.Users[i].username) {
+        user = inputs[0];
+        include = true;
+      }
+    }
+    if (inputs[1] !== inputs[2]) {
+      alert("비밀번호를 확인해주십시오.")
+    } else if (include === true) {
+      alert("로그인 되었습니다.");
+      this.setState({logined: true, User: user});
+    } else {
+      alert("아이디 비밀번호를 확인해주십시오.");
+    }
   }
-  /*
-  _handleSubmit = () => {
-    const { value } = this.state;
-    axios
-      .post("/customers/serializer/user/", { text: value })
-      .then(res => this._renderText());
-  };
-  */
+
+  checkRegit() {
+    this.setState({regit: true});
+    document.getElementById('userid').value = "";
+    document.getElementById('userpw1').value = "";
+    document.getElementById('userpw2').value = "";
+  }
+  
+  adderId() {
+    var username = document.getElementById('addid').value;
+    var password = document.getElementById('addpw1').value;
+    var password2 = document.getElementById('addpw2').value;
+
+    if (password !== password2) {
+      return alert("비밀번호를 확인해주세요.");
+    } else {
+      var count = this.state.Users[this.state.Users.length-1].id;
+      var inputs = {
+        id: count+1,
+        username: username,
+        password: password
+      }
+    }
+    var tmp = this.state.Users;
+    tmp.push(inputs);
+    this.setState({Users: tmp, regit: false});
+    document.getElementById('addid').value = "";
+    document.getElementById('addpw1').value = "";
+    document.getElementById('addpw2').value = "";
+  }
 
   renderLogin() {
-    this.getUser();
     return (
       <>
         <div
@@ -84,7 +126,7 @@ class SignUp extends React.Component {
                 <Form action="" className="form" method="">
                   <CardHeader className="text-center">
                     <CardTitle className="title-up" tag="h3">
-                      Sign Up
+                      Sign In
                     </CardTitle>
                     <div className="social-line">
                       <Button
@@ -193,7 +235,16 @@ class SignUp extends React.Component {
                       onClick={this.checkId.bind(this)}
                       size="lg"
                     >
-                      Get Started
+                      로그인
+                    </Button>
+                    <Button
+                      className="btn-neutral btn-round"
+                      color="info"
+                      onClick={this.checkRegit.bind(this)}
+                      size="lg"
+                      style={{marginLeft: '20px'}}
+                    >
+                      회원가입
                     </Button>
                   </CardFooter>
                 </Form>
@@ -232,8 +283,9 @@ class SignUp extends React.Component {
           }}
         >
           <div className="Logined">
-            <h3>UserName: {this.state.Users[index].username}</h3>
-            <p>ID : {this.state.Users[index].id}</p>
+            <img src={require('./PersonIcon.png')}
+            width="300px" height="300px"></img>
+            <h3>UserName: {this.state.User}</h3>
             <div className="BookedList">
 
             </div>
@@ -242,8 +294,108 @@ class SignUp extends React.Component {
     )
   }
 
+  renderRegit() {
+    return (
+      <>
+        <div
+          className="section section-signup"
+          style={{
+            backgroundImage: "url(" + require("assets/img/bg11.jpg") + ")",
+            backgroundSize: "cover",
+            backgroundPosition: "top center",
+            minHeight: "700px"
+          }}
+        >
+          <Container>
+            <Row>
+              <Card className="card-signup" data-background-color="blue">
+                <Form action="" className="form" method="">
+                  <CardHeader className="text-center">
+                    <CardTitle className="title-up" tag="h3">
+                      Sign Up
+                    </CardTitle>
+                  </CardHeader>
+                  <CardBody>
+                    <InputGroup
+                      className={
+                        "no-border" + (this.state.firstFocus ? " input-group-focus" : "")
+                      }
+                    >
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="now-ui-icons users_circle-08"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input id="addid"
+                        placeholder="ID..."
+                        type="text"
+                        onFocus={() => this.setState({FirstFocus: true})}
+                        onBlur={() => this.setState({FirstFocus: false})}
+                      ></Input>
+                    </InputGroup>
+                    <InputGroup
+                      className={
+                        "no-border" + (this.state.lastFocus ? " input-group-focus" : "")
+                      }
+                    >
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="now-ui-icons text_caps-small"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input id="addpw1"
+                        placeholder="Password..."
+                        type="text"
+                        onFocus={() => this.setState({lastFocus: true})}
+                        onBlur={() => this.setState({lastFocus: false})}
+                      ></Input>
+                    </InputGroup>
+
+                    <InputGroup
+                      className={
+                        "no-border" + (this.state.lastFocus ? " input-group-focus" : "")
+                      }
+                    >
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="now-ui-icons text_caps-small"></i>
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input id="addpw2"
+                        placeholder="Confrim Password..."
+                        type="text"
+                        onFocus={() => this.setState({lastFocus: true})}
+                        onBlur={() => this.setState({lastFocus: false})}
+                      ></Input>
+                    </InputGroup>
+                  </CardBody>
+                  <CardFooter className="text-center">
+                    <Button
+                      className="btn-neutral btn-round"
+                      color="info"
+                      onClick={this.adderId.bind(this)}
+                      size="lg"
+                    >
+                      확인
+                    </Button>
+                  </CardFooter>
+                </Form>
+              </Card>
+            </Row>
+          </Container>
+        </div>
+      </>
+    );
+  }
+
   render() {
-    if (this.state.logined === false) {
+    if (this.state.regit === true) {
+      return (
+        <>
+          {this.renderRegit()}
+        </>
+      )
+    } else if (this.state.logined === false) {
       return (
         <>
         {this.renderLogin()}

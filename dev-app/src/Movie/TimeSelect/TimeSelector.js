@@ -29,6 +29,17 @@ class TimeSelector extends React.Component {
     checkReload() {
         if (this.state.reload === false && this.state.sereload === true) {
             this.setState({selected: 0, clicked: null, timeline: null, reload: false});
+            //this.selectedSet.Time = [];
+            this.selectedSet.Time.index = 0;
+            this.selectedSet.Time.start = '00:00';
+            this.selectedSet.Time.end = '00:00';
+            this.selectedSet.Time.name = '00:00';
+            this.selectedSet.Time.theater = '00:00';
+            this.selectedSet.Time.theaternum = 0;
+            this.selectedSet.Time.nowseat = 0;
+            this.selectedSet.Time.maxseat = 0;
+            this.selectedSet.Theater = [];
+            this.selectedSet.Movie = [];
         }
     }
 
@@ -55,6 +66,18 @@ class TimeSelector extends React.Component {
             times.push(i);
         }
         return times;
+    }
+
+    checkNowSeat(current) {
+        var index = current.index - 1;
+        var Seat = this.selectedSet.Time.Seat[index];
+        var count = 0;
+        for (var i=0; i<Seat.length; i++) {
+            if (Seat[i].Bookings === 'dis') {
+                count += 1;
+            }
+        }
+        return current.maxseat - count;
     }
 
     renderSlide(num) {
@@ -84,7 +107,7 @@ class TimeSelector extends React.Component {
     }
 
     renderScheSet(current) {
-
+        var nowseat = this.checkNowSeat(current);
         var seltime = Math.floor(current.start.substring(0,2));
         if (seltime >= this.state.clicked && seltime < this.state.clicked+1) {
             return (
@@ -101,7 +124,7 @@ class TimeSelector extends React.Component {
                     <div className="TimeTheater">
                         <p>{current.theater}</p><br/>
                         <p>{current.theaternum}관</p><br/>
-                        <p>{current.nowseat} / {current.maxseat}</p>
+                        <p>{nowseat} / {current.maxseat}</p>
                     </div>
                 </button>
             );
@@ -120,7 +143,7 @@ class TimeSelector extends React.Component {
                     <div className="TimeTheater">
                         <p>{current.theater}</p><br/>
                         <p>{current.theaternum}관</p><br/>
-                        <p>{current.nowseat} / {current.maxseat}</p>
+                        <p>{nowseat} / {current.maxseat}</p>
                     </div>
                 </button>
             );
@@ -128,7 +151,7 @@ class TimeSelector extends React.Component {
     }
 
     renderSchedule() {
-        var TimeSet2 = [];
+        var TimeSet2 = [];   
         if (this.selectedSet.Movie.length !== 0) {
             for (var i=0; i<TimeSet.length; i++) {
                 for (var j=0; j<this.selectedSet.Movie.length; j++) {
@@ -141,6 +164,12 @@ class TimeSelector extends React.Component {
                     }
                 }
             }
+        
+        TimeSet2.sort(function (a, b) {
+            const astart = Number(a.start.replace(":",""));
+            const bstart = Number(b.start.replace(":",""));
+            return astart < bstart ? -1 : astart > bstart ? 1: 0;
+        });
         }
         return (
             TimeSet2.map(current => {

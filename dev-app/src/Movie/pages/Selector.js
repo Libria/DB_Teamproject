@@ -5,6 +5,8 @@ import { DateSelector } from '../DateSelect';
 import { TimeSelector } from '../TimeSelect';
 import PropTypes from 'prop-types';
 import Seatbook from './Seatbook';
+import { TimeSet } from '../TimeSelect/SampleTime';
+//import { Seats2 } from '../Seat/Seatinfo2';
 import './Selector.css';
 
 class Selector extends React.Component {
@@ -27,7 +29,8 @@ class Selector extends React.Component {
                     theater: '지역',
                     theaternum: 0,
                     nowseat: 0,
-                    maxseat: 0
+                    maxseat: 0,
+                    Seat: []
                 }
             }
         }
@@ -43,6 +46,53 @@ class Selector extends React.Component {
         var tmp = this.state.reload;
         this.setState({reload: nextProps.Reload, sereload: tmp});
     }
+
+    componentDidMount() {
+        this.makingSeatTheater();
+    }
+
+    makingSeatTheater() {
+        var tmp = this.state.selectedSet;
+        for (var i=0; i<TimeSet.length; i++) {
+            const tmpSeat = this.makingSeatSet();
+            tmp.Time.Seat.push(tmpSeat);
+        }
+        this.setState({selectedSet: tmp});
+    }
+
+    //빡쳐서 넣은 것
+    // row by col 만큼 ava 좌석 어레이 생성
+    seatMaker(row, col) {
+        var Seats = [];
+        for (var i=0; i<row; i++) {
+            for (var j=0; j<col; j++) {
+                Seats.push({
+                    Row: i+1,
+                    Col: j+1,
+                    Bookings: 'ava'
+                });
+            } 
+        }
+        return Seats;
+    }
+
+    // row, col 인 좌석을 nul로 변경
+    // colnum = col 개수, Seatset = 어레이
+    seatNull(row, col, colnum, Seatset) {
+        var index = colnum * (row - 1) + col - 1;
+        Seatset[index].Bookings = 'nul';
+        return Seatset;
+    }
+
+    makingSeatSet() {
+        var SeatSet = this.seatMaker(10,10);
+        for (var i=0; i<10; i++) {
+            SeatSet = this.seatNull(i+1,3,10,SeatSet);
+            SeatSet = this.seatNull(i+1,8,10,SeatSet);
+        }
+        return SeatSet
+    }
+    //빡쳐서 넣은 것 끝
 
     //Code Duplicated;;
     makingDateString(year, month, date) {
@@ -91,9 +141,15 @@ class Selector extends React.Component {
         } else if (which === 'Movie') {
             tmp.Movie = value;
         } else if (which === 'Time') {
-            tmp.Time = value;
+            tmp.Time.index = value.index;
+            tmp.Time.start = value.start;
+            tmp.Time.end = value.end;
+            tmp.Time.name = value.name;
+            tmp.Time.theater = value.theater;
+            tmp.Time.theaternum = value.theaternum;
+            tmp.Time.nowseat = value.nowseat;
+            tmp.Time.maxseat = value.maxseat;
         } else {
-            tmp.MovieImg = value;
         }
         this.setState({selectedSet: tmp});
         console.log(this.state.selectedSet);
@@ -137,7 +193,8 @@ class Selector extends React.Component {
                     <Seatbook Reload={this.state.seat}
                     onPopupSeat={this.popupSeat}
                     onToggleSelector={this.toggleSelector}
-                    selectedSet={this.state.selectedSet}></Seatbook>
+                    selectedSet={this.state.selectedSet}
+                    onSelectedConfirm={this.selectedConfirm}></Seatbook>
                 </div>
             </div>
         );

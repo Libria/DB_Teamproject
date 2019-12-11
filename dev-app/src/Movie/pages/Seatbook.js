@@ -23,8 +23,17 @@ class Seatbook extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.setState({Seatinfo: Seats2});
+  checkingTheater() {
+    if (this.selectedSet.Time.index === null) {
+    } else {
+      const index = this.selectedSet.Time.index - 1
+      if (index === -1) {
+        return Seats2;
+      } else {
+        var SeatSet = this.selectedSet.Time.Seat[index];
+        return SeatSet;
+      }
+    }
   }
 
   /*
@@ -38,8 +47,9 @@ class Seatbook extends React.Component {
   */
 
   componentWillReceiveProps(nextProps) {
-    this.setState({reload: nextProps.Reload});
-    this.checkReload();
+    var Seats = this.checkingTheater();
+    this.setState({reload: nextProps.Reload, Seatinfo: Seats});
+    this.checkReload(); 
   }
 
   checkReload() {

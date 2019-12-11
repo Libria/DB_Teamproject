@@ -1,7 +1,7 @@
 import React from 'react';
 import './SelectMovie.css';
 import PropTypes from 'prop-types';
-//import { MovieSet } from './SampleSet';
+import { MovieSet } from './SampleSet';
 import axios from 'axios';
 
 class SelectMovie extends React.Component {
@@ -16,18 +16,19 @@ class SelectMovie extends React.Component {
 
         this.movies = [];
     }
-
+    /*
     getMovie = async() => {
-        const {
-            data: {
-                data: { movies }
-            }
-        } = await axios.get("https://yts.lt/api/v2/list_movies.json?limit=50&sort_by=year&Director Name=Jennifer Michelle Lee&genre=Animation");
-        this.movies = movies;
+        const movie = await axios.get("http://127.0.0.1:8000/movie/serializer/movie/?format=json");
+        this.movies = movie.data;
     }
 
     componentDidMount() {
         this.getMovie();
+    }
+    */
+
+    componentDidMount() {
+        this.movies = MovieSet;
     }
 
     cancelSelectMovie() {
@@ -46,13 +47,21 @@ class SelectMovie extends React.Component {
         this.props.onConfirmMovie();
     }
 
+    getTitle(title) {
+        if (title.length > 15) {
+            return title.slice(0,15) + '...';
+        } else {
+            return title;
+        }
+    }
+
     renderMovieSet(current) {
         if (this.tmpSelected.includes(current.id)) {
             return (
                 <div className="SelectMovSet" key={current.id}>
                     <button onClick={this.chooseMovie.bind(this, current.id)} id="AlreadyMov">
                     <img src={current.medium_cover_image} alt={current.title} width="130px" height="190px" ></img>
-                    <p><span className={'SelMov' + current.age}>{current.age}</span>{current.title.slice(0,20)}...</p>
+                    <p><span className={'SelMov' + current.age}>{current.age}</span>{this.getTitle(current.title)}</p>
                     </button>
                 </div>
             );
@@ -61,7 +70,7 @@ class SelectMovie extends React.Component {
                 <div className="SelectMovSet" key={current.id}>
                     <button onClick={this.chooseMovie.bind(this, current.id)}>
                     <img src={current.medium_cover_image} alt={current.title} width="130px" height="190px" ></img>
-                    <p><span className={'SelMov' + current.age}>{current.age}</span>{current.title.slice(0,20)}...</p>
+                    <p><span className={'SelMov' + current.age}>{current.age}</span>{this.getTitle(current.title)}</p>
                     </button>
                 </div>
             );

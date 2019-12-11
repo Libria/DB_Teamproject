@@ -2,7 +2,7 @@ import React from 'react';
 import './MovieSelector.css';
 
 import SelectMovie from './SelectMovie';
-//import { MovieSet } from './SampleSet';
+import { MovieSet } from './SampleSet';
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
@@ -16,7 +16,7 @@ class MovieSelector extends React.Component {
             tmpSelected : [],
             modal: false,
             movies: [],
-            isLoading: true,
+            isLoading: false,
             reload: false,
             sereload: false
         };
@@ -31,6 +31,8 @@ class MovieSelector extends React.Component {
         this.onSelected = [];
     }
 
+    
+    /*
     getMovie = async() => {
         const {
             data: {
@@ -40,9 +42,14 @@ class MovieSelector extends React.Component {
         this.setState({movies: movies, isLoading: false});
     }
 
+    
     componentDidMount() {
         this.getMovie();
     }
+    */
+   componentDidMount() {
+       this.setState({movies: MovieSet});
+   }
 
     componentWillReceiveProps(nextProps) {
         this.setState({reload: nextProps.Reload, sereload: nextProps.SeReload});
