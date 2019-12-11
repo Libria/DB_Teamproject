@@ -56,6 +56,14 @@ class SignUp extends React.Component {
     console.log(inputs);
     this.setState({logined: true})
   }
+  /*
+  _handleSubmit = () => {
+    const { value } = this.state;
+    axios
+      .post("/customers/serializer/user/", { text: value })
+      .then(res => this._renderText());
+  };
+  */
 
   renderLogin() {
     this.getUser();
@@ -73,7 +81,7 @@ class SignUp extends React.Component {
           <Container>
             <Row>
               <Card className="card-signup" data-background-color="blue">
-                <Form action="_self" className="form" method="">
+                <Form action="" className="form" method="">
                   <CardHeader className="text-center">
                     <CardTitle className="title-up" tag="h3">
                       Sign Up
@@ -227,7 +235,7 @@ class SignUp extends React.Component {
             <h3>UserName: {this.state.Users[index].username}</h3>
             <p>ID : {this.state.Users[index].id}</p>
             <div className="BookedList">
-              
+
             </div>
           </div>
         </div>

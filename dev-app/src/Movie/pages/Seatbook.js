@@ -79,13 +79,11 @@ class Seatbook extends React.Component {
 
   alertConfirm() {
     alert("결제 되었습니다.");
-    /*
     var tmp = this.state.Seatinfo;
     for (var i=0; i<this.tmpSel.length; i++) {
       tmp[this.tmpSel[i]].Bookings = 'dis';
     }
     this.setState({Seatinfo: tmp});
-    */
     this.popupSeat();
     this.toggleSelector();
   }
