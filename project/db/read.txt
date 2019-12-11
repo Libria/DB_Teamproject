@@ -1,0 +1,32 @@
+python manage.py runserver 0.0.0.0:8000               (서버작동)
+python manage.py runserver localhost:5000
+serve -s
+
+http://127.0.0.1:8000                                           (주소)
+
+python manage.py makemigrations
+python manage.py migrate
+
+http://127.0.0.1:8000/admin                               ( ID: admin, Password: 123)
+
+--------------------------------------------------------------
+python -m pip install django-allauth
+python -m pip install djangorestframework        
+python -m pip install django-cors-headers
+--------------------------------------------------------------  
+
+http://127.0.0.1:8000/customers/serializer/user/
+http://127.0.0.1:8000/customers/serializer/user/1/
+http://127.0.0.1:8000/customers/serializer/user/31/
+http://127.0.0.1:8000/customers/serializer/user/newest/                가장 최근에 아이디를 만든사람
+http://127.0.0.1:8000/customers/serializer/user/last/                     마지막에 로그인한사람
+http://127.0.0.1:8000/movie/serializer/movie/
+http://127.0.0.1:8000/movie/serializer/seat/
+http://127.0.0.1:8000/movie/serializer/seat1/
+http://127.0.0.1:8000/movie/serializer/theater/
+http://127.0.0.1:8000/movie/serializer/theater1/
+http://127.0.0.1:8000/movie/serializer/time/
+
+https://this-programmer.com/entry/%EA%B0%84%EB%8B%A8%ED%95%9C-react-JS-Django-%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%A7%8C%EB%93%A4%EA%B8%B0
+
+http://192.168.56.1:5000

@@ -2,7 +2,7 @@ import React from 'react';
 import './MovieSelector.css';
 
 import SelectMovie from './SelectMovie';
-//import { MovieSet } from './SampleSet';
+import { MovieSet } from './SampleSet';
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
@@ -16,7 +16,7 @@ class MovieSelector extends React.Component {
             tmpSelected : [],
             modal: false,
             movies: [],
-            isLoading: true,
+            isLoading: false,
             reload: false,
             sereload: false
         };
@@ -28,9 +28,11 @@ class MovieSelector extends React.Component {
         this.confirmMovie = this.confirmMovie.bind(this);
         this.cancelMovie = this.cancelMovie.bind(this);
 
-        this.state.movies = [];
+        this.onSelected = [];
     }
 
+    
+    /*
     getMovie = async() => {
         const {
             data: {
@@ -40,9 +42,14 @@ class MovieSelector extends React.Component {
         this.setState({movies: movies, isLoading: false});
     }
 
+    
     componentDidMount() {
         this.getMovie();
     }
+    */
+   componentDidMount() {
+       this.setState({movies: MovieSet});
+   }
 
     componentWillReceiveProps(nextProps) {
         this.setState({reload: nextProps.Reload, sereload: nextProps.SeReload});
@@ -50,7 +57,8 @@ class MovieSelector extends React.Component {
     }
         
     checkReload() {
-        if (this.state.reload === true && this.state.sereload === true) {
+        if (this.state.reload === false && this.state.sereload === true) {
+            this.onSelected = [];
             this.selectAllMovie();
         }
     }
@@ -101,9 +109,19 @@ class MovieSelector extends React.Component {
 
     confirmMovie() {
         var tmp = [];
+        this.onSelected = [];
         for (var i=0; i<this.state.tmpSelected.length; i++) {
             tmp.push(this.state.tmpSelected[i]);
         }
+        for (var j=0; j<tmp.length;) {
+            for (i=0; i<this.state.movies.length; i++) {
+                if (this.state.movies[i].id === tmp[j]) {
+                    this.onSelected.push(this.state.movies[i]);
+                    j++;
+                }
+            }
+        }
+        this.props.onSelectedConfirm('Movie',this.onSelected);
         this.setState({Selected: tmp, modal: false});
     }
 

@@ -11,7 +11,11 @@ class Seatbook extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.checkReload = this.checkReload.bind(this);
     this.popupSeat = this.props.onPopupSeat.bind(this);
+    this.alertConfirm = this.alertConfirm.bind(this);
+    this.toggleSelector = this.props.onToggleSelector.bind(this);
+    this.selectedSet = this.props.selectedSet;
     this.count = 0;
+    this.tmpSel = [];
 
     this.state = {
       Seatinfo: [],
@@ -19,8 +23,17 @@ class Seatbook extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.setState({Seatinfo: Seats2});
+  checkingTheater() {
+    if (this.selectedSet.Time.index === null) {
+    } else {
+      const index = this.selectedSet.Time.index - 1
+      if (index === -1) {
+        return Seats2;
+      } else {
+        var SeatSet = this.selectedSet.Time.Seat[index];
+        return SeatSet;
+      }
+    }
   }
 
   /*
@@ -34,8 +47,9 @@ class Seatbook extends React.Component {
   */
 
   componentWillReceiveProps(nextProps) {
-    this.setState({reload: nextProps.Reload});
-    this.checkReload();
+    var Seats = this.checkingTheater();
+    this.setState({reload: nextProps.Reload, Seatinfo: Seats});
+    this.checkReload(); 
   }
 
   checkReload() {
@@ -58,10 +72,13 @@ class Seatbook extends React.Component {
     if (tmp[index].Bookings === 'ava') {
       tmp[index].Bookings = 'sel'
       this.count += 1;
+      this.tmpSel.push(index);
       return this.setState({Seatinfo: tmp});
     } else if (tmp[index].Bookings === 'sel') {
       tmp[index].Bookings = 'ava'
       this.count -= 1;
+      var arrindex = this.tmpSel.indexOf(index);
+      this.tmpSel.splice(arrindex,1);
       return this.setState({Seatinfo: tmp});
     }
   }
@@ -70,7 +87,34 @@ class Seatbook extends React.Component {
     this.props.onPopupSeat();
   }
 
+  alertConfirm() {
+    alert("결제 되었습니다.");
+    var tmp = this.state.Seatinfo;
+    for (var i=0; i<this.tmpSel.length; i++) {
+      tmp[this.tmpSel[i]].Bookings = 'dis';
+    }
+    this.setState({Seatinfo: tmp});
+    this.popupSeat();
+    this.toggleSelector();
+  }
+
+  toggleSelector() {
+    this.props.onToggleSelector();
+  }
+
+  getImg() {
+    var name = this.selectedSet.Time.name;
+    var src = null;
+    for (var i=0; i<this.selectedSet.Movie.length; i++) {
+      if (name === this.selectedSet.Movie[i].title) {
+        src = this.selectedSet.Movie[i].medium_cover_image;
+      }
+    }
+    return src;
+  }
+
   render() {
+    var imgsrc = this.getImg();
     return (
       <div className="Seatbooksum">
         <h1>인원 / 좌석 선택</h1>
@@ -88,16 +132,16 @@ class Seatbook extends React.Component {
             })}
           </div>
           <div className="Seatinformation">
-            <h1>영화 이미지</h1>
+            <img src={imgsrc}></img>
             <ul>
-              <li>영화관 이름 자리</li>
-              <li>영화 시간 자리</li>
+              <li>영화관 : {this.selectedSet.Time.theater}</li>
+              <li>상영시간 : {this.selectedSet.Time.start} ~ {this.selectedSet.Time.end}</li>
               <li>총 인원 : {this.count}</li>
             </ul>
             <Seatshow Seat={this.state.Seatinfo}/>
             <p>{this.count*9}.000 원</p>
             <button onClick={this.popupSeat.bind(this)}>이전</button>
-            <button>다음</button>
+            <button onClick={this.alertConfirm}>다음</button>
           </div>
         </div>
       </div>

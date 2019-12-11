@@ -141,7 +141,7 @@
     width: 85%;
     margin: auto;
     overflow-y: auto;
-    height: 350px;
+    height: 100px;
 }
 
 .Seatinformation .Seatshow ul li {
@@ -156,4 +156,10 @@
     text-align: center;
     background-color: rgb(177,155,194);
     border-radius: 5px;
+}
+
+.Seatinformation img {
+    width: 250px;
+    height: 300px;
+    margin: 30px;
 }

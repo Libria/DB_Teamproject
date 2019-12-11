@@ -37,7 +37,8 @@ class Home extends React.Component {
                 </Button>
                 <div className="SelectorModal"
                 style={{display: this.state.selector ? 'block' : 'none'}}>
-                    <Selector Reload={this.state.selector}></Selector>
+                    <Selector Reload={this.state.selector}
+                    onToggleSelector={this.toggleSelector}></Selector>
                 </div>
             </div>
         );

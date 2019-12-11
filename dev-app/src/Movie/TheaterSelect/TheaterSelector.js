@@ -3,6 +3,7 @@ import './TheaterSelector.css';
 import { Theaterinfo } from './Theaterinfo';
 import SelectTheater from './SelectTheater';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 class TheaterSelector extends React.Component {
     constructor() {
@@ -14,7 +15,8 @@ class TheaterSelector extends React.Component {
             modal: false,
             dropdown: '',
             reload: false,
-            sereload: false
+            sereload: false,
+            Theaters: []
         };
 
         this.moveSelectTheater = this.moveSelectTheater.bind(this);
@@ -33,9 +35,18 @@ class TheaterSelector extends React.Component {
     }
 
     checkReload() {
-        if (this.state.reload === true && this.state.sereload === true) {
+        if (this.state.reload === false && this.state.sereload === true) {
             this.selectAllTheater();
         }
+    }
+
+    getTheater = async() => {
+        const theater = await axios.get("http://localhost:8000/movie/serializer/theater/?format=json");
+        this.setState({Theaters: theater.data});
+    }
+    
+    componentDidMount() {
+        this.getTheater(); 
     }
 
     moveSelectTheater() {
@@ -60,6 +71,11 @@ class TheaterSelector extends React.Component {
         for (var i=0; i<this.state.tmpSelected.length; i++) {
             tmp.push(this.state.tmpSelected[i]);
         }
+        var s = [];
+        tmp.map(current => {
+            s.push(Theaterinfo[current-1]);
+        });
+        this.props.onSelectedConfirm('Theater', s);
         this.setState({Selected: tmp, modal: false});
     }
 

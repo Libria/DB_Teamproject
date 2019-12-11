@@ -1,5 +1,8 @@
 import React from "react";
 import { Container } from "reactstrap";
+import './IndexHeader.css';
+
+import Trailer from './Trailer';
 
 function IndexHeader() {
   let pageHeader = React.createRef();
@@ -32,8 +35,7 @@ function IndexHeader() {
         <Container>
           <div className="content-center brand">
             <h1 className="h1-seo">Trailer</h1>
-            <button className="botn fourth">Watch</button>
-			<iframe src="https://youtu.be/-edmQKcOW8s" width="400" height="300"></iframe>
+            <Trailer></Trailer>
           </div>
         </Container>
       </div>

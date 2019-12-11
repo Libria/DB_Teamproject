@@ -79,7 +79,7 @@ function IndexNavbar() {
             navbar
           >
             <Nav navbar>
-              <NavItem>
+              {/*<NavItem>
                 <Button
                   className="nav-link btn-neutral"
                   color="info"
@@ -89,7 +89,7 @@ function IndexNavbar() {
                 >
                   <p>Shop</p>
                 </Button>
-              </NavItem>
+              </NavItem>*/}
               <NavItem>
                 <Home></Home>
               </NavItem>

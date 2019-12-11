@@ -66,7 +66,6 @@ class DateSlide extends React.Component {
     }
 
     renderDatebar() {
-        var days = this.makingDateSet();
         var index = [0,1,2,3,4];
         return (
             <div className="DateSlide">
